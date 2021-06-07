@@ -1,0 +1,38 @@
+a peer to peer network - similar to egg
+that is a message board
+
+a protocol for storing messages between many computers
+without the possibility of deletion
+
+[msg, msg1, msg2, msg3]
+
+[msg, hash(msg)+msg2]
+
+to participate in a messageboard
+each user must store all messages locally
+unencrypted
+each board will have a size limit
+200 char limit, 10 char uname
+
+when a message is sent, the running hash of
+all messages earlier than new msg is sent 
+
+how do we avoid malicious nodes?
+
+we could assume the majority of nodes are correct
+and ban any dissenters
+
+join p2p mboard by connecting to existing member IP, download msg history if it exists
+send message by hashing all prev msgs and sending raw bytes of new msg
+spread this message to all nodes
+    if a node agrees - send a MSG_AFFIRM_HASH:target=phash_msghash=hash(new msg)
+
+    hmm could we ignore all this agree/disagree shit and just have each node separately
+    accept and believe messages that match and add them to their running hashes
+
+    nodes that don't follow the convention will never get their messages propogated
+
+    if a node somehow gets corrupted, it can always just redownload msg history
+
+rhash = hash((hash(hash(msg)+msg1)+msg2)+msg3)
+
